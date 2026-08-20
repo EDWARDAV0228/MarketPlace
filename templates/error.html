@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block style %}
+
+<style>
+    .nav-btns {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .nav-btns a {
+        text-decoration: none;
+        color: #000;
+    }
+</style>
+
+{% endblock style %}
+
+
+{% block nav-center %}
+<div class="nav-btns">
+    <a href="{% url 'main_page' %}"> Главная страница</a>
+    <a href="">Разработчики</a>
+</div>
+{% endblock nav-center %}
+
+{% block content %}
+
+<div class="container">
+    <h1>
+        Страница не была найдена.<br>Ошибка - 404
+    </h1>
+</div>
+
+{% endblock content %}

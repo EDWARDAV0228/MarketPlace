@@ -1,0 +1,102 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% block icon %} {% endblock icon %}">
+    <title>{% block title %}{% endblock title%}</title>
+</head>
+
+<body>
+
+    {% block style %}
+    {% endblock style %}
+
+    <nav>
+        <div class="container">
+            <div class="nav-flex">
+                <div class="logo">
+                    <a href="{% url 'main_page' %}">MarketPlace</a>
+                </div>
+                {% block nav-center %}
+
+                <form class="searchForm">
+                    <input type="text" name="search" id="search" placeholder="Поиск товаров">
+                    <input type="submit" value="Поиск" id="submit">
+                </form>
+
+                {% endblock nav-center %}
+                <div class="nav-elems">
+                    <a href="{% url 'cart_page' %}">
+                        ♡
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}
+    {% endblock content %}
+
+    <nav class="pagin-nav">
+        <div class="paginator">
+            {% if products.has_previous %}
+
+            <a href="?page={{ products.previous_page_number }}" class="prev-btn">
+                <div class="page-btn">
+                    ⯇
+                </div>
+            </a>
+
+            {% endif %}
+
+            {% for i in products.paginator.page_range %}
+            {% if products.number == i %}
+
+            <a href="?page={{ i }}" class="num-btn active">
+                <div class="page-btn">
+                    {{ i }}
+                </div>
+            </a>
+
+            {% else %}
+
+            <a class="num-btn" href="?page={{ i }}">
+                <div class="page-btn">
+                    {{ i }}
+                </div>
+            </a>
+
+            {% endif %}
+            {% endfor %}
+
+            {% if products.has_next %}
+
+            <a href="?page={{ products.next_page_number }}" class="next-btn">
+                <div class="page-btn">
+                    ⯈
+                </div>
+            </a>
+
+            {% endif %}
+
+
+        </div>
+    </nav>
+
+
+
+    {% include 'components/footer.html' %}
+
+    <script src="{% static 'js/addInCart.js' %}"></script>
+
+    {% block script %}
+    {% endblock script %}
+
+</body>
+
+</html>
