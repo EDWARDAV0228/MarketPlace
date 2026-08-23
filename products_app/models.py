@@ -34,7 +34,7 @@ class Products(models.Model):
         NEW = 'Новое', 'Новое'
 
     name = models.CharField(verbose_name='Название', max_length=22)
-    description = models.TextField(verbose_name='Короткое описание', max_length=110)
+    description = models.TextField(verbose_name='Короткое описание', max_length=120)
     image = models.ImageField(verbose_name='Изображение', upload_to='products/images', null=True, blank=True)
     full_description = models.TextField(verbose_name='Полное описание')
     date = models.DateField(verbose_name='Дата добавления')
