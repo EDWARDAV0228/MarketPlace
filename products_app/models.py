@@ -37,8 +37,7 @@ class Products(models.Model):
     description = models.TextField(verbose_name='Короткое описание', max_length=120)
     image = models.ImageField(verbose_name='Изображение', upload_to='products/images', null=True, blank=True)
     full_description = models.TextField(verbose_name='Полное описание')
-    date = models.DateField(verbose_name='Дата добавления')
-    price = models.IntegerField(verbose_name='Цена')
+    price = models.IntegerField(verbose_name='Цена') 
     author = models.CharField(verbose_name='Автор')
     category = models.ForeignKey('products_app.Category', on_delete=models.PROTECT, verbose_name='Категория',
                                  related_name='products', null=True)
@@ -50,6 +49,8 @@ class Products(models.Model):
         default=Condition.NEW,
     )
     model = models.CharField(verbose_name='Модель', max_length=30)
+    date = models.DateTimeField(verbose_name='Дата добавления', auto_now_add=True)
+    ubdate_date = models.DateTimeField(verbose_name='Дата обновления', auto_now=True)
 
     def __str__(self):
         return f'{self.name}'

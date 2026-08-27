@@ -42,7 +42,7 @@ def main_page(request):
     categories = Category.objects.all()
     brands = Brand.objects.all()
 
-    return render(request, 'index.html', {'products': products, 'brands': brands, 'categories': categories, 'category_get': category, 'brand_get': brand, 'condition_get': condition,})
+    return render(request, 'index.html', {'products': products, 'brands': brands, 'categories': categories, 'category_get': category, 'brand_get': brand,})
 
 
 def get_product(request, product_id):
