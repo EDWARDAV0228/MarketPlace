@@ -82,9 +82,11 @@
                     {% if product.image %}
                     <img src="{{ product.image.url }}">
 
-                    {% else %}
+                    {% elif product.category.image %}
                     <img src="{{product.category.image.url}}">
 
+                    {% else %}
+                    <img src="" alt="">
                     {% endif %}
                 </a>
 

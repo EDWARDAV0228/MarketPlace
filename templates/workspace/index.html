@@ -1,0 +1,38 @@
+{% extends 'workspace/base.html' %}
+
+{% block content %}
+  <section>
+    <div class="container">
+      <div class="products-list">
+        {% for product in products %}
+          <div class="product">
+            <div class="crud-btns absolute">
+              <a href="{% url 'edit_product' product_id=product.id %}" class="edit-btn absolute"><i class="fa-solid fa-pen-to-square"></i></a>
+              <a href="{% url 'del_product' product_id=product.id %}" class="del-btn absolute"><i class="fa-solid fa-trash"></i></a>
+            </div>
+
+            <div class="image">
+              <a href="{% url 'product_page' product_id=product.id %}" class="product-image">
+                {% if product.image %}
+                  <img src="{{ product.image.url }}" />
+                {% elif product.category.image %}
+                  <img src="{{ product.category.image.url }}" />
+                {% else %}
+                  <img src="" alt="" />
+                {% endif %}
+              </a>
+            </div>
+
+            <div class="product-info">
+              <div class="description">{{ product.description }}</div>
+              <div class="price">
+                ${{ product.price }}
+                <div>{{ product.category }}</div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

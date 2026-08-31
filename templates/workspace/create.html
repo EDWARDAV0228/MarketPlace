@@ -1,0 +1,103 @@
+{% extends 'workspace/base.html' %}
+
+{% load static %}
+
+{% block icon %}
+
+{% endblock %}
+
+{% block title %}
+  Добавить товар
+{% endblock %}
+
+{% block style %}
+  <style></style>
+{% endblock %}
+
+{% block nav_center %}
+
+{% endblock %}
+
+{% block content %}
+  <section>
+    <div class="container">
+      <form action="{% url 'create_product' %}" class="add-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1 class="form-title">Добваление товара</h1>
+
+        <div class="name-block">
+          <label for="product-name">Название <span class="red">*</span></label>
+          <input type="text" name="product-name" id="name" required />
+        </div>
+
+        <div class="description-block">
+          <label for="description">Короткое описание <span class="red">*</span></label>
+          <textarea name="description" id="description" maxlength="120" required></textarea>
+        </div>
+
+        <div class="image-block">
+          <label for="image">Изображение</label>
+          <input type="file" name="image" id="image" accept="images/*" />
+        </div>
+
+        <div class="full-description-block">
+          <label for="full-description">Полное описание <span class="red">*</span></label>
+          <textarea name="full-description" id="full-description" required></textarea>
+        </div>
+
+        <div class="split">
+          <div class="author-block">
+            <label for="product-name">Автор <span class="red">*</span></label>
+            <input type="text" name="author" id="author" required />
+          </div>
+          <div class="price-block">
+            <label for="price">Цена <span class="red">*</span></label>
+            <input type="number" name="price" id="price" required />
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="category-block">
+            <label for="category">Категория <span class="red">*</span></label>
+            <select name="category" id="category" required>
+              <option value="0" disable selected hidden>Выберите категорию</option>
+              {% for category in categoryes %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="brand-block">
+            <label for="brand">Бренд <span class="red">*</span></label>
+            <select name="brand" id="brand" required>
+              <option value="0" disable selected hidden>Выберите бренд</option>
+              {% for brand in brands %}
+                <option value="{{ brand.id }}">{{ brand.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="condition-block">
+            <label for="condition">Состояние <span class="red">*</span></label>
+            <select name="condition" id="condition" required>
+              <option value="" disabled selected hidden>Состояние</option>
+              <option value="Б-У">Б/У</option>
+              <option value="Новое">Новое</option>
+            </select>
+          </div>
+
+          <div class="model-block">
+            <label for="model">Модель <span class="red">*</span></label>
+            <input type="text" name="model" id="model" required />
+          </div>
+        </div>
+
+        <div class="create-submit">
+          <input type="submit" value="Добавить товар" />
+        </div>
+      </form>
+    </div>
+  </section>
+{% endblock %}

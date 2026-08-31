@@ -1,0 +1,103 @@
+{% extends 'workspace/base.html' %}
+
+{% load static %}
+
+{% block icon %}
+
+{% endblock %}
+
+{% block title %}
+  Редактировать товар товар
+{% endblock %}
+
+{% block style %}
+  <style></style>
+{% endblock %}
+
+{% block nav_center %}
+
+{% endblock %}
+
+{% block content %}
+  <section>
+    <div class="container">
+      <form action="{% url 'edit_product' %}" class="add-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1 class="form-title">Редактирование товара</h1>
+
+        <div class="name-block">
+          <label for="product-name">Название <span class="red">*</span></label>
+          <input type="text" value='{{product.name}}' name="product-name" id="name" required />
+        </div>
+
+        <div class="description-block">
+          <label for="description">Короткое описание <span class="red">*</span></label>
+          <textarea name="description" id="description" maxlength="120" required>{{product.description}}</textarea>
+        </div>
+
+        <div class="image-block">
+          <label for="image">Изображение</label>
+          <input type="file" name="image" id="image" accept="images/*" />
+        </div>
+
+        <div class="full-description-block">
+          <label for="full-description">Полное описание <span class="red">*</span></label>
+          <textarea name="full-description" id="full-description" required>{{product.full_description}}</textarea>
+        </div>
+
+        <div class="split">
+          <div class="author-block">
+            <label for="product-name">Автор <span class="red">*</span></label>
+            <input type="text" name="author" id="author" value='{{product.author}}' required />
+          </div>
+          <div class="price-block">
+            <label for="price">Цена <span class="red">*</span></label>
+            <input type="number" name="price" id="price" value={{product.price}} required />
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="category-block">
+            <label for="category">Категория <span class="red">*</span></label>
+            <select name="category" id="category" required>
+              <option value="0" disable selected hidden>Выберите категорию</option>
+              {% for category in categoryes %}
+                <option {% if category == product.category %}selected{% endif %} value="{{ category.id }}">{{ category.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="brand-block">
+            <label for="brand">Бренд <span class="red">*</span></label>
+            <select name="brand" id="brand" required>
+              <option value="0" disable selected hidden>Выберите бренд</option>
+              {% for brand in brands %}
+                <option {% if brand == product.brand %}selected{% endif %} value="{{ brand.id }}">{{ brand.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="condition-block">
+            <label for="condition">Состояние <span class="red">*</span></label>
+            <select name="condition" id="condition" required>
+              <option value="" disabled selected hidden>Состояние</option>
+              <option value="Б-У" {% if product.condition == 'Б-У' %}selected{% endif %}>Б/У</option>
+              <option value="Новое" {% if product.condition == 'Новое' %}selected{% endif %}>Новое</option>
+            </select>
+          </div>
+
+          <div class="model-block">
+            <label for="model">Модель <span class="red">*</span></label>
+            <input type="text" name="model" id="model" value='{{product.medel}}' required />
+          </div>
+        </div>
+
+        <div class="edit-submit">
+          <input type="submit" value="Добавить товар" />
+        </div>
+      </form>
+    </div>
+  </section>
+{% endblock %}

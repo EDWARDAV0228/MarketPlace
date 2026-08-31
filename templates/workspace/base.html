@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/workspace.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+    <link rel="icon"
+      href="{% block icon %}
+
+      {% endblock %}" />
+    <title>
+      {% block title %}
+      {% endblock %}
+    </title>
+  </head>
+
+  <body>
+    {% block style %}
+
+    {% endblock %}
+
+    <nav>
+      <div class="container">
+        <div class="nav-flex">
+          <div class="logo">
+            <a href="{% url 'main_page' %}">MarketPlace </a>
+          </div>
+          {% block nav_center %}
+
+          <form class="searchForm">
+            <input type="text" name="search" id="search" placeholder="Поиск товаров" />
+            <input type="submit" value="Поиск" id="submit" />
+          </form>
+
+          {% endblock  %}
+
+          <div class="create-btn">
+            <a href="{% url 'create_product' %}">Добавить товар</a>
+          </div>
+
+        </div>
+      </div>
+    </nav>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <nav class="pagin-nav">
+      <div class="paginator">
+        {% if products.has_previous %}
+          <a href="?page={{ products.previous_page_number }}" class="prev-btn"><div class="page-btn">⯇</div></a>
+        {% endif %}
+
+        {% for i in products.paginator.page_range %}
+          {% if products.number == i %}
+            <a href="?page={{ i }}" class="num-btn active"><div class="page-btn">{{ i }}</div></a>
+          {% else %}
+            <a class="num-btn" href="?page={{ i }}"><div class="page-btn">{{ i }}</div></a>
+          {% endif %}
+        {% endfor %}
+
+        {% if products.has_next %}
+          <a href="?page={{ products.next_page_number }}" class="next-btn"><div class="page-btn">⯈</div></a>
+        {% endif %}
+      </div>
+    </nav>
+
+    {% include 'components/footer.html' %}
+
+    {% block script %}
+
+    {% endblock %}
+  </body>
+</html>

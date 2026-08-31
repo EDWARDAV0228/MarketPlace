@@ -3,104 +3,110 @@
 {% load static %}
 
 {% block icon %}
-{% static 'images/icons/Product.svg' %}
-{% endblock icon %}
+  {% static 'images/icons/Product.svg' %}
+{% endblock %}
 
 {% block title %}
-{{product.name}}
-{% endblock title %}
+  {{ product.name }}
+{% endblock %}
 
 {% block style %}
-<style>
+  <style>
     .nav-btns {
-        display: flex;
-        gap: 30px;
-        align-items: center;
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      transform: translateX(120px);
     }
-
+    
     .nav-btns a {
-        text-decoration: none;
-        color: #000;
+      text-decoration: none;
+      color: #000;
     }
-
+    
     .product {
-        border: 0;
-        padding: 0;
-        height: max-content;
+      border: 0;
+      padding: 0;
+      height: max-content;
     }
-
+    
     .description {
-        height: max-content;
-        margin-bottom: 10px;
+      height: max-content;
+      margin-bottom: 10px;
     }
-
+    
     .category,
     .brand,
     .condition,
     .price,
     .model {
-        font-size: 16px;
-        font-weight: 500;
-        border: 1px solid #696868;
-        display: inline;
-        color: #000;
-        padding: 5px 10px;
-        border-radius: 15px;
+      font-size: 16px;
+      font-weight: 500;
+      border: 1px solid #696868;
+      display: inline;
+      color: #000;
+      padding: 5px 10px;
+      border-radius: 15px;
     }
-
+    
     .product-info {
-        display: flex;
-        gap: 15px;
-        padding-block: 10px;
+      display: flex;
+      gap: 15px;
+      padding-block: 10px;
     }
-
+    
     .text {
-        color: #696868;
+      color: #696868;
     }
-
+    
     .image {
-        margin-top: 10px;
+      margin-top: 10px;
     }
-
+    
     .image img {
-        width: 600px;
-        height: 360px;
+      width: 600px;
+      height: 360px;
     }
-</style>
-{% endblock style %}
+  </style>
+{% endblock %}
 
-
-{% block nav-center %}
-<div class="nav-btns">
-    <a href="{% url 'main_page' %}"> Главная страница</a>
+{% block nav_center %}
+  <div class="nav-btns">
+    <a href="{% url 'main_page' %}">Главная страница</a>
     <a href="">Разработчики</a>
-</div>
-{% endblock nav-center %}
-
+  </div>
+{% endblock %}
 
 {% block content %}
-<section>
+  <section>
     <div class="container">
-        <div class="product">
-            <a href="" class="name">{{product.name}}</a>
-            <div class="image">
-
-                {% if product.image %}
-                <img src="{{ product.image.url }}" alt="">
-
-                {% endif %}
-
-            </div>
-            <div class="description">Описание: {{product.full_description}}</div>
-            <div class="product-info">
-                <div class="category"><span class="text">Категория:</span> {{product.category}}</div>
-                <div class="brand"><span class="text">Бренд:</span> {{product.brand}}</div>
-                <div class="condition"><span class="text">Состояние:</span> {{product.condition}}</div>
-                <div class="price"><span class="text">Цена:</span> ${{product.price}}</div>
-                <div class="model"><span class="text">Модель:</span> {{product.model}}</div>
-            </div>
-            <div class="add-btn">Добавить в корзину</div>
+      <div class="product">
+        <a href="" class="name">{{ product.name }}</a>
+        <div class="image">
+          {% if product.image %}
+            <img src="{{ product.image.url }}" alt="" />
+          {% endif %}
         </div>
+        <div class="description">Описание: {{ product.full_description }}</div>
+        <div class="product-info">
+          <div class="category">
+            <span class="text">Категория:</span> {{ product.category }}
+          </div>
+          <div class="brand">
+            <span class="text">Бренд:</span> {{ product.brand }}
+          </div>
+          <div class="condition">
+            <span class="text">Состояние:</span> {{ product.condition }}
+          </div>
+          <div class="price">
+            <span class="text">Цена:</span> ${{ product.price }}
+          </div>
+          <div class="model">
+            <span class="text">Модель:</span> {{ product.model }}
+          </div>
+        </div>
+        <div class="add-btn">Добавить в корзину</div>
+      </div>
     </div>
-</section>
-{% endblock content %}
+  </section>
+{% endblock %}
