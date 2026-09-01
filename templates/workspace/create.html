@@ -36,8 +36,12 @@
         </div>
 
         <div class="image-block">
-          <label for="image">Изображение</label>
-          <input type="file" name="image" id="image" accept="images/*" />
+          <span>Изображение</span>
+          <label class="image-label">
+            <label for="image" class="upload-btn"><i class="fa-solid fa-image"></i></label>
+            <span>Выбранный файл: <span class="selected-file">тут пока пусто</span></span>
+            <input type="file" name="image" class="hidden" id="image" accept="images/*" />
+          </label>
         </div>
 
         <div class="full-description-block">
@@ -100,4 +104,8 @@
       </form>
     </div>
   </section>
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/selectedImg.js' %}"></script>
 {% endblock %}

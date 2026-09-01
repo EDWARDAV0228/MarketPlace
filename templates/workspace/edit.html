@@ -6,6 +6,8 @@
 
 {% endblock %}
 
+{% include "static js/selectedImg.js" %}
+
 {% block title %}
   Редактировать товар товар
 {% endblock %}
@@ -21,13 +23,13 @@
 {% block content %}
   <section>
     <div class="container">
-      <form action="{% url 'edit_product' %}" class="add-form" method="POST" enctype="multipart/form-data">
+      <form action="{% url 'edit_product' product_id=product.id %}" class="add-form" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h1 class="form-title">Редактирование товара</h1>
 
         <div class="name-block">
           <label for="product-name">Название <span class="red">*</span></label>
-          <input type="text" value='{{product.name}}' name="product-name" id="name" required />
+          <input type="text" value="{{product.name}}" name="product-name" id="name" required />
         </div>
 
         <div class="description-block">
@@ -36,8 +38,14 @@
         </div>
 
         <div class="image-block">
-          <label for="image">Изображение</label>
-          <input type="file" name="image" id="image" accept="images/*" />
+          <span>Изображение</span>
+          <label class="image-label">
+
+            <label for="image" class="upload-btn"><i class="fa-solid fa-image"></i></label>
+            <span>Выбранный файл: <span class="selected-file">тут пока пусто</span></span>
+            <input type="file" name="image" class="hidden" id="image" accept="images/*" />
+            
+          </label>
         </div>
 
         <div class="full-description-block">
@@ -48,11 +56,11 @@
         <div class="split">
           <div class="author-block">
             <label for="product-name">Автор <span class="red">*</span></label>
-            <input type="text" name="author" id="author" value='{{product.author}}' required />
+            <input type="text" name="author" id="author" value="{{product.author}}" required />
           </div>
           <div class="price-block">
             <label for="price">Цена <span class="red">*</span></label>
-            <input type="number" name="price" id="price" value={{product.price}} required />
+            <input type="number" name="price" id="price" value="{{product.price}}" required />
           </div>
         </div>
 
@@ -90,14 +98,28 @@
 
           <div class="model-block">
             <label for="model">Модель <span class="red">*</span></label>
-            <input type="text" name="model" id="model" value='{{product.medel}}' required />
+            <input type="text" name="model" id="model" value="{{product.model}}" required />
           </div>
         </div>
 
-        <div class="edit-submit">
-          <input type="submit" value="Добавить товар" />
+        <div class="split">
+          <div class="edit-submit">
+            <input type="submit" value="Сохранить изменение" />
+          </div>
+          <div class="del-submit">
+            <a href="{% url 'del_product' product_id=product.id %}">
+              Удалить товар
+            </a>
+          </div>
         </div>
+       
       </form>
     </div>
   </section>
 {% endblock %}
+
+{% block script %}
+<script src="{% static 'js/selectedImg.js' %}"></script>
+{% endblock script %}
+
+

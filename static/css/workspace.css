@@ -274,23 +274,22 @@ section {
     width: 100%;
     border: 1px solid #7c7c7c;
     border-radius: 10px;
-    padding: 10px 5px;
+    padding: 10px 0px 10px 10px;
 }
 
 #description {
     width: 100%;
     border: 1px solid #7c7c7c;
     border-radius: 10px;
-    padding: 10px 5px;
+    padding: 10px 0px 10px 10px;
 }
-
-#image {}
 
 #full-description {
     width: 100%;
     border: 1px solid #7c7c7c;
     border-radius: 10px;
-    padding: 10px 5px;
+    padding: 10px 0px 10px 10px;
+    height: 100px;
 }
 
 .split {
@@ -304,64 +303,72 @@ section {
     width: 100%;
     border: 1px solid #7c7c7c;
     border-radius: 10px;
-    padding: 10px 5px;
+    padding: 10px 0px 10px 10px;
 }
 
 #author {
     width: 100%;
     border: 1px solid #7c7c7c;
     border-radius: 10px;
-    padding: 10px 5px;
+    padding: 10px 0px 10px 10px;
 }
 
 #category {
     width: 102%;
     border: 1px solid #7c7c7c;
     border-radius: 10px;
-    padding: 10px 5px;
+    padding: 10px 0px 10px 10px;
 }
 
 #brand {
     width: 102%;
     border: 1px solid #7c7c7c;
     border-radius: 10px;
-    padding: 10px 5px;
+    padding: 10px 0px 10px 10px;
 }
 
 #condition {
     width: 102%;
     border: 1px solid #7c7c7c;
     border-radius: 10px;
-    padding: 10px 5px;
+    padding: 10px 0px 10px 10px;
 }
 
 #model {
     width: 100%;
     border: 1px solid #7c7c7c;
     border-radius: 10px;
-    padding: 10px 5px;
+    padding: 10px 0px 10px 10px;
 }
 
 .create-submit input {
     width: 50%;
-    background-color: transparent;
+    color: #fff;
     padding: 10px;
     text-align: center;
     border: 1px solid #7c7c7c;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #00e317;
+}
+
+.edit-submit input {
+    color: #fff;
+    background-color: #00e317;
+    width: 102%;
+    display: block;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #7c7c7c;
+    transform: translateY(-3px);
     border-radius: 10px;
     font-size: 16px;
     cursor: pointer;
 }
 
-.edit-submit input {
-    width: 50%;
-    background-color: transparent;
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #7c7c7c;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
+.edit-submit input:hover {
+    background-color: #02d517;
 }
 
 
@@ -408,4 +415,68 @@ section {
     transform: scale(1.1);
     transition: .2s;
     color: #fff;
+}
+
+.image-block span {
+    cursor: default;
+}
+
+.image-label {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 10px 0px 10px 10px;
+    gap: 15px;
+    border: 1px solid #7c7c7c;
+    background-color: #eaeaea;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.upload-btn {
+    cursor: pointer;
+    border: 1px solid #7c7c7c;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.upload-btn i {
+    font-size: 36px;
+    color: #000;
+}
+
+.upload-btn:hover {
+    background-color: #00e317;
+    transform: scale(1.1);
+    border: 1px solid #00e317;
+    transition: .4s;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.split:last-child {
+    align-items: center;
+}
+
+.del-submit a {
+    color: #fff;
+    background-color: #e30000;
+    width: 100%;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #7c7c7c;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.del-submit a:hover {
+    background-color: #c70000;
+
 }
