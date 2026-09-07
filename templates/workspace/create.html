@@ -1,9 +1,10 @@
 {% extends 'workspace/base.html' %}
 
 {% load static %}
+{% load main_tags %}
 
 {% block icon %}
-
+{% static 'images/icons/Add.svg' %}
 {% endblock %}
 
 {% block title %}
@@ -65,6 +66,7 @@
             <label for="category">Категория <span class="red">*</span></label>
             <select name="category" id="category" required>
               <option value="0" disable selected hidden>Выберите категорию</option>
+              {% get_categories as categories %}
               {% for category in categoryes %}
                 <option value="{{ category.id }}">{{ category.name }}</option>
               {% endfor %}
@@ -75,6 +77,7 @@
             <label for="brand">Бренд <span class="red">*</span></label>
             <select name="brand" id="brand" required>
               <option value="0" disable selected hidden>Выберите бренд</option>
+              {% get_brands as brands %}
               {% for brand in brands %}
                 <option value="{{ brand.id }}">{{ brand.name }}</option>
               {% endfor %}

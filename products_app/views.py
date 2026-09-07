@@ -36,16 +36,11 @@ def main_page(request):
     paginator = Paginator(products, page_size)
     products = paginator.get_page(page)
 
-    categories = Category.objects.all()
-    brands = Brand.objects.all()
-
     return render(
         request,
         "index.html",
         {
             "products": products,
-            "brands": brands,
-            "categories": categories,
             "category_get": category,
             "brand_get": brand,
         },
@@ -94,16 +89,11 @@ def cart_page(request):
     paginator = Paginator(products, page_size)
     products = paginator.get_page(page)
 
-    categories = Category.objects.all()
-    brands = Brand.objects.all()
-
     return render(
         request,
         "cart.html",
         {
             "products": products,
-            "brands": brands,
-            "categories": categories,
             "category_get": category,
             "brand_get": brand,
         },
@@ -113,6 +103,14 @@ def cart_page(request):
 def workspace(request):
 
     products = Products.objects.all()
+
+    search = request.GET.get("search")
+
+    if search:
+        products = products.filter(description__icontains=search).union(
+            products.filter(category__name__icontains=search),
+            products.filter(brand__name__icontains=search),
+        )
 
     page = request.GET.get("page", 1)
     page_size = request.GET.get("page_size", 4)
@@ -178,7 +176,7 @@ def create_product(request):
     )
 
 
-def del_product(request, product_id):
+def del_product(product_id):
     product = get_object_or_404(Products, pk=product_id)
     product.delete()
     return redirect("workspace")

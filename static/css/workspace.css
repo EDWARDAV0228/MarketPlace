@@ -453,6 +453,12 @@ section {
     transition: .4s;
 }
 
+
+.upload-btn:hover i {
+    color: #fff;
+    transition: 0.5s;
+}
+
 .hidden {
     display: none;
     opacity: 0;

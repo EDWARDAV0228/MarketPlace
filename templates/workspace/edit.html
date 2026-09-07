@@ -1,15 +1,16 @@
 {% extends 'workspace/base.html' %}
 
 {% load static %}
+{% load main_tags %}
 
 {% block icon %}
-
+{% static 'images/icons/Edit.svg' %}
 {% endblock %}
 
 {% include "static js/selectedImg.js" %}
 
 {% block title %}
-  Редактировать товар товар
+  Редактировать товар
 {% endblock %}
 
 {% block style %}
@@ -69,6 +70,7 @@
             <label for="category">Категория <span class="red">*</span></label>
             <select name="category" id="category" required>
               <option value="0" disable selected hidden>Выберите категорию</option>
+              {% get_categories as categories %}
               {% for category in categoryes %}
                 <option {% if category == product.category %}selected{% endif %} value="{{ category.id }}">{{ category.name }}</option>
               {% endfor %}
@@ -79,6 +81,7 @@
             <label for="brand">Бренд <span class="red">*</span></label>
             <select name="brand" id="brand" required>
               <option value="0" disable selected hidden>Выберите бренд</option>
+              {% get_brands as brands %}
               {% for brand in brands %}
                 <option {% if brand == product.brand %}selected{% endif %} value="{{ brand.id }}">{{ brand.name }}</option>
               {% endfor %}

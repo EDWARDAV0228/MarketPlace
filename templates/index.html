@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load main_tags %}
 
 {% load static %}
 
@@ -25,6 +26,7 @@
 
             <select name="category" id="1" class="category">
                 <option value="" disabled selected hidden>Категория</option>
+                {% get_categories as categories %}
                 {% for category in categories %}
 
                 {% if category_get == category.id %}
@@ -43,6 +45,7 @@
 
             <select name="brand" id="2" class="brand">
                 <option value="" disabled selected hidden>Бренд</option>
+                {% get_brands as brands %}
                 {% for brand in brands %}
                 {% if brand_get == brand.id %}
 
