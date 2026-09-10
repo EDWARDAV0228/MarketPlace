@@ -486,3 +486,17 @@ section {
     background-color: #c70000;
 
 }
+
+.all-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+.image-box {
+    width: 100%;
+}
+
+.image-box img {
+    width: 100%;
+}

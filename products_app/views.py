@@ -53,6 +53,9 @@ def get_product(request, product_id):
     except Products.DoesNotExist:
         return render(request, "error.html")
 
+    product.views += 1
+    product.save()
+
     return render(request, "product.html", {"product": product})
 
 

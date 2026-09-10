@@ -51,25 +51,27 @@
 
     {% endblock %}
 
-    <nav class="pagin-nav">
-      <div class="paginator">
-        {% if products.has_previous %}
-          <a href="?page={{ products.previous_page_number }}" class="prev-btn"><div class="page-btn">⯇</div></a>
-        {% endif %}
-
-        {% for i in products.paginator.page_range %}
-          {% if products.number == i %}
-            <a href="?page={{ i }}" class="num-btn active"><div class="page-btn">{{ i }}</div></a>
-          {% else %}
-            <a class="num-btn" href="?page={{ i }}"><div class="page-btn">{{ i }}</div></a>
+    {% block paginator %}
+      <nav class="pagin-nav">
+        <div class="paginator">
+          {% if products.has_previous %}
+            <a href="?page={{ products.previous_page_number }}" class="prev-btn"><div class="page-btn">⯇</div></a>
           {% endif %}
-        {% endfor %}
 
-        {% if products.has_next %}
-          <a href="?page={{ products.next_page_number }}" class="next-btn"><div class="page-btn">⯈</div></a>
-        {% endif %}
-      </div>
-    </nav>
+          {% for i in products.paginator.page_range %}
+            {% if products.number == i %}
+              <a href="?page={{ i }}" class="num-btn active"><div class="page-btn">{{ i }}</div></a>
+            {% else %}
+              <a class="num-btn" href="?page={{ i }}"><div class="page-btn">{{ i }}</div></a>
+            {% endif %}
+          {% endfor %}
+
+          {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}" class="next-btn"><div class="page-btn">⯈</div></a>
+          {% endif %}
+        </div>
+      </nav>
+    {% endblock %}
 
     {% include 'components/footer.html' %}
 

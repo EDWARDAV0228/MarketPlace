@@ -49,6 +49,10 @@
       border-radius: 15px;
     }
     
+    .name {
+      cursor: default;
+    }
+    
     .product-info {
       display: flex;
       gap: 15px;
@@ -57,15 +61,6 @@
     
     .text {
       color: #696868;
-    }
-    
-    .image {
-      margin-top: 10px;
-    }
-    
-    .image img {
-      width: 600px;
-      height: 360px;
     }
   </style>
 {% endblock %}
@@ -78,35 +73,73 @@
 {% endblock %}
 
 {% block content %}
+  <div class="gallery-modal hidden">
+    <div class="image-modal">
+      <div class="modal-arrows">
+        <div class="arrow">
+          <i class="fa-solid fa-angle-right"></i>
+        </div>
+        <div class="arrow">
+          <i class="fa-solid fa-angle-left"></i>
+        </div>
+      </div>
+      <div class="image-block">
+        <img src="{{ product.image.url }}" />
+      </div>
+    </div>
+  </div>
+
   <section>
     <div class="container">
       <div class="product">
         <a href="" class="name">{{ product.name }}</a>
-        <div class="image">
-          {% if product.image %}
-            <img src="{{ product.image.url }}" alt="" />
-          {% endif %}
+        <div class="images">
+          <div class="all-images">
+            {% if product.image %}
+              <div class="image-box">
+                <img src="{{ product.image.url }}" />
+              </div>
+            {% endif %}
+            {% if product.gallery %}
+              {% for image in product.gallery.all %}
+                <div class="image-box">
+                  <img src="{{ image.file.url }}" />
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
         </div>
         <div class="description">Описание: {{ product.full_description }}</div>
+        <div class="views">
+          <i class="fa-solid fa-eye"></i> Просмотры: {{ product.views }}
+        </div>
         <div class="product-info">
           <div class="category">
-            <span class="text">Категория:</span> {{ product.category }}
+            <span class="text"><i class="fa-solid fa-layer-group"></i> Категория:</span> {{ product.category }}
           </div>
           <div class="brand">
-            <span class="text">Бренд:</span> {{ product.brand }}
+            <span class="text"><i class="fa-solid fa-tag"></i> Бренд:</span> {{ product.brand }}
           </div>
           <div class="condition">
-            <span class="text">Состояние:</span> {{ product.condition }}
+            <span class="text"><i class="fa-solid fa-gears"></i> Состояние:</span> {{ product.condition }}
           </div>
           <div class="price">
-            <span class="text">Цена:</span> ${{ product.price }}
+            <span class="text"><i class="fa-solid fa-dollar-sign"></i> Цена:</span> ${{ product.price }}
           </div>
           <div class="model">
-            <span class="text">Модель:</span> {{ product.model }}
+            <span class="text"><i class="fa-solid fa-square-check"></i> Модель:</span> {{ product.model }}
           </div>
         </div>
         <div class="add-btn">Добавить в корзину</div>
       </div>
     </div>
   </section>
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/gallery.js' %}"></script>
+{% endblock %}
+
+{% block paginator %}
+
 {% endblock %}
