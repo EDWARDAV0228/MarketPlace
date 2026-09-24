@@ -12,6 +12,29 @@ class TimeStampModel(models.Model):
     ubdate_date = models.DateTimeField(verbose_name="Дата обновления", auto_now=True)
 
 
+class ProductLinks(TimeStampModel):
+
+    class Meta:
+        verbose_name = "Ссылка"
+        verbose_name_plural = "Ссылки"
+        ordering = ('id',)
+
+    product = models.OneToOneField(
+        "products_app.Products",
+        on_delete=models.CASCADE,
+        related_name="links",
+        verbose_name="Продукт",
+    )
+
+    whatsapp = models.URLField(verbose_name="Whatsapp", blank=True, null=True)
+    telegram = models.URLField(verbose_name="Telegram", blank=True, null=True)
+    instagram = models.URLField(verbose_name="Instagram", blank=True, null=True)
+    facebook = models.URLField(verbose_name="Facebook", blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.product.name}"
+
+
 class Category(TimeStampModel):
 
     class Meta:
@@ -62,7 +85,6 @@ class Products(TimeStampModel):
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
-        ordering = ("-date", "-ubdate_date")
 
     class Condition(models.TextChoices):
         USED = "Б-У", "Б/У"

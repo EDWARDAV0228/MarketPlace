@@ -21,10 +21,24 @@ imageModal.addEventListener('click', e => {
     e.stopPropagation();
 });
 
-leftArrow.addEventListener('click', e => {
-    primaryImage.setAttribute('src', '')
-})
+// leftArrow.addEventListener('click', e => {
+//     primaryImage.setAttribute('src', '')
+// })
 
-rightArrow.addEventListener('click', e => {
-    primaryImage.setAttribute('src', '')
+// rightArrow.addEventListener('click', e => {
+//     primaryImage.setAttribute('src', '')
+// })
+
+window.addEventListener('keydown', e => {
+    switch (e.key) {
+        case "ArrowRight":
+
+            break;
+        case "ArrowLeft":
+
+            break;
+        default:
+
+            break;
+    }
 })

@@ -500,3 +500,32 @@ section {
 .image-box img {
     width: 100%;
 }
+
+.image-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.gallery-label {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 10px 0px 10px 10px;
+    gap: 15px;
+    border: 1px solid #7c7c7c;
+    background-color: #eaeaea;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.link-block {
+    margin-top: 10px;
+}
+
+.link-block input {
+    padding: 10px 0px 10px 10px;
+    border: 1px solid #7c7c7c;
+    border-radius: 10px;
+    width: 100%;
+}

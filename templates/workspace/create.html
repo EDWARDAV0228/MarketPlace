@@ -4,7 +4,7 @@
 {% load main_tags %}
 
 {% block icon %}
-{% static 'images/icons/Add.svg' %}
+  {% static 'images/icons/Add.svg' %}
 {% endblock %}
 
 {% block title %}
@@ -24,7 +24,7 @@
     <div class="container">
       <form action="{% url 'create_product' %}" class="add-form" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <h1 class="form-title">Добваление товара</h1>
+        <h1 class="form-title">Добавление товара</h1>
 
         <div class="name-block">
           <label for="product-name">Название <span class="red">*</span></label>
@@ -37,17 +37,47 @@
         </div>
 
         <div class="image-block">
-          <span>Изображение</span>
+          <span>Изображения</span>
+
+          <div class="image-title">Основное изображение</div>
+
           <label class="image-label">
             <label for="image" class="upload-btn"><i class="fa-solid fa-image"></i></label>
-            <span>Выбранный файл: <span class="selected-file">тут пока пусто</span></span>
+            <span>Выбранный файл: <span class="selected-file"></span></span>
             <input type="file" name="image" class="hidden" id="image" accept="images/*" />
+          </label>
+
+          <div class="image-title">Допольнительные изображения</div>
+
+          <label class="gallery-label">
+            <label for="gallery" class="upload-btn"><i class="fa-solid fa-image"></i></label>
+            <span>Выбранные файл: <span class="selected-file"></span></span>
+            <input type="file" name="gallery" class="hidden" id="gallery" accept="products/gallery" multiple />
           </label>
         </div>
 
         <div class="full-description-block">
           <label for="full-description">Полное описание <span class="red">*</span></label>
           <textarea name="full-description" id="full-description" required></textarea>
+        </div>
+
+        <div class="links-block">
+          <div class="link-block">
+            <label for="whatsapp"><i class="fa-brands fa-whatsapp"></i> Whatsapp</label>
+            <input type="text" name="whatsapp" placeholder="Введите ссылку" id="whatsapp" />
+          </div>
+          <div class="link-block">
+            <label for="telegram"><i class="fa-brands fa-telegram"></i> Telegram</label>
+            <input type="text" name="telegram" placeholder="Введите ссылку" id="telegram" />
+          </div>
+          <div class="link-block">
+            <label for="instagram"><i class="fa-brands fa-instagram"></i> Instagram</label>
+            <input type="text" name="instagram" placeholder="Введите ссылку" id="instagram" />
+          </div>
+          <div class="link-block">
+            <label for="facebook"><i class="fa-brands fa-facebook"></i> Facebook</label>
+            <input type="text" name="facebook" placeholder="Введите ссылку" id="facebook" />
+          </div>
         </div>
 
         <div class="split">

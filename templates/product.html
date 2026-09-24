@@ -84,13 +84,37 @@
         </div>
       </div>
       <div class="image-block">
-        <img src="{{ product.image.url }}" />
+        {% if product.image %}
+          <img src="{{ product.image.url }}" />
+        {% else %}
+          <img src="" />
+        {% endif %}
       </div>
     </div>
   </div>
 
   <section>
     <div class="container">
+      {% if product.links %}
+        <div class="links">
+          {% if product.links.whatsapp %}
+            <a href="{{ product.links.whatsapp }}" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i></a>
+          {% endif %}
+
+          {% if product.links.telegram %}
+            <a href="{{ product.links.telegram }}" class="telegram-link"><i class="fa-brands fa-telegram"></i></a>
+          {% endif %}
+
+          {% if product.links.instagram %}
+            <a href="{{ product.links.instagram }}" class="instagram-link"><i class="fa-brands fa-instagram"></i></a>
+          {% endif %}
+
+          {% if product.links.facebook %}
+            <a href="{{ product.links.facebook }}" class="facebook-link"><i class="fa-brands fa-facebook"></i></a>
+          {% endif %}
+        </div>
+      {% endif %}
+
       <div class="product">
         <a href="" class="name">{{ product.name }}</a>
         <div class="images">

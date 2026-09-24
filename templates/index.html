@@ -4,129 +4,117 @@
 {% load static %}
 
 {% block icon %}
-{% static 'images/icons/Product-List.png' %}
-{% endblock icon %}
+  {% static 'images/icons/Product-List.png' %}
+{% endblock %}
 
 {% block title %}
-Список товаров
-{% endblock title %}
+  Список товаров
+{% endblock %}
 
 {% block style %}
-<style>
-
-</style>
-{% endblock style %}
+  <style></style>
+{% endblock %}
 
 {% block content %}
-
-
-<section>
-    <div class="container">
-        <form class="filtration-btns" action="" name="Selects">
-
-            <select name="category" id="1" class="category">
-                <option value="" disabled selected hidden>Категория</option>
-                {% get_categories as categories %}
-                {% for category in categories %}
-
-                {% if category_get == category.id %}
-                <option value="{{category.id}}" selected>
-                    {{ category.name }}
-                </option>
-
-                {% else %}
-                <option value="{{category.id}}">
-                    {{ category.name }}
-                </option>
-
-                {% endif %}
-                {% endfor %}
-            </select>
-
-            <select name="brand" id="2" class="brand">
-                <option value="" disabled selected hidden>Бренд</option>
-                {% get_brands as brands %}
-                {% for brand in brands %}
-                {% if brand_get == brand.id %}
-
-                <option value="{{brand.id}}" selected>
-                    {{ brand.name }}
-                </option>
-
-                {% else %}
-                <option value="{{brand.id}}">
-                    {{ brand.name }}
-                </option>
-
-                {% endif %}
-                {% endfor %}
-            </select>
-
-            <select name="condition" id="3" class="condition">
-                <option value="" disabled selected hidden>Состояние</option>
-                <option value="Б-У">Б/У</option>
-                <option value="Новое">Новое</option>
-            </select>
-
-            <input type="submit" value="Фильтровать" class="submit">
-
-        </form>
-    </div>
-</section>
-
-<section>
-    <div class="container">
-
-        <div class="products-list">
-
-            {% for product in products %}
-            <div class="product">
-                <a href="{% url 'product_page' product_id=product.id %}" class="product-image">
-                    {% if product.image %}
-                    <img src="{{ product.image.url }}">
-
-                    {% elif product.category.image %}
-                    <img src="{{product.category.image.url}}">
-
-                    {% else %}
-                    <img src="" alt="">
-                    {% endif %}
-                </a>
-
-                <div class="description">{{product.description}}</div>
-                <div class="price">
-                    ${{product.price}}
-                    <div>{{product.category}}</div>
-                </div>
-                <div class="add-btn">Добавить в корзину</div>
-            </div>
+  <div class="main">
+    <aside class="filter-bar">
+      <form>
+        <div class="filter-block">
+          <div class="open-btn">
+            <span class="angle"><i class="fa-solid fa-angle-right"></i></span>
+            Категории
+          </div>
+          <div class="filter-list hidden">
+            {% get_categories as categories %}
+            {% for category in categories %}
+              <div class="check-block">
+                <input type="checkbox" name="category_check" id="category_check" value="{{ category.id }}" />
+                <label for="category_check">{{ category.name }}</label>
+              </div>
             {% endfor %}
-
+          </div>
+        </div>
+        <div class="filter-block">
+          <div class="open-btn">
+            <span class="angle"><i class="fa-solid fa-angle-right"></i></span>
+            Бренды
+          </div>
+          <div class="filter-list hidden">
+            {% get_brands as brands %}
+            {% for brand in brands %}
+              <div class="check-block">
+                <input type="checkbox" name="brand_check" id="brand_check" value="{{ brand.id }}" />
+                <label for="brand_check">{{ brand.name }}</label>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="filter-block">
+          <div class="open-btn">
+            <span class="angle"><i class="fa-solid fa-angle-right"></i></span>
+            Состояние
+          </div>
+          <div class="filter-list hidden">
+            <div class="check-block">
+              <input type="checkbox" name="condition_check" id="condition_check" value="1" />
+              <label for="condition_check">Б/У</label>
+            </div>
+            <div class="check-block">
+              <input type="checkbox" name="condition_check" id="condition_check" value="2" />
+              <label for="condition_check">Новое</label>
+            </div>
+          </div>
         </div>
 
-    </div>
-</section>
+        <div class="price-filter">
+          <div class="open-btn">Цена</div>
+          <div class="filter-list hidden">
+            <div class="price-block">
+              <label for="from_1price">От</label>
+              <input type="number" name="from_price" id="from_price" />
+            </div>
 
-{% endblock content %}
+            <div class="price-block">
+              <label for="to_price">До</label>
+              <input type="number" name="to_price" id="to_price" />
+            </div>
+          </div>
+        </div>
+
+        <input type="submit" name="filter-submit" class="filter-submit" value="Фильтровать" />
+      </form>
+    </aside>
+
+    <section class="product-list">
+      <div class="container">
+        <div class="product-sort"></div>
+        <div class="products-list">
+          {% for product in products %}
+            <div class="product">
+              <a href="{% url 'product_page' product_id=product.id %}" class="product-image">
+                {% if product.image %}
+                  <img src="{{ product.image.url }}" />
+                {% elif product.category.image %}
+                  <img src="{{ product.category.image.url }}" />
+                {% else %}
+                  <img src="" alt="" />
+                {% endif %}
+              </a>
+
+              <div class="description">{{ product.description }}</div>
+              <div class="price">
+                ${{ product.price }}
+                <div>{{ product.category }}</div>
+              </div>
+              <div class="add-btn">Добавить в корзину</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock %}
 
 {% block script %}
-<script>
-
-    // let submit = document.querySelector('.submit')
-
-    // submit.addEventListener('click', e => {
-    //     e.preventDefault()
-    //     category = document.querySelector('.category').value
-    //     brand = document.querySelector('.brand').value
-    //     condition = document.querySelector('.condition').value
-
-    //     let url = `/filter/${category}/${brand}/${condition}`
-
-    //     window.location.href = url
-
-    // })
-
-
-
-</script>
-{% endblock script %}
+  <script src="{% static 'js/filter.js' %}"></script>
+{% endblock %}

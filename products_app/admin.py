@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from products_app.models import Products, Category, Brand, ImageGallery
+from products_app.models import Products, Category, Brand, ImageGallery, ProductLinks
 
 
 class ImageGalleryInline(admin.TabularInline):
@@ -12,6 +12,10 @@ class ImageGalleryInline(admin.TabularInline):
     def get_image(self, obj: ImageGallery):
         if obj.file:
             return mark_safe(f'<img src="{obj.file.url}" width="100px">')
+
+class ProductLinksInline(admin.StackedInline):
+    model = ProductLinks
+    extra = 0
 
 
 @admin.register(Products)
@@ -32,7 +36,7 @@ class ProductAdmin(admin.ModelAdmin):
     )
     readonly_fields = ("date", "ubdate_date", "views")
     search_fields = ("name",)
-    inlines = (ImageGalleryInline,)
+    inlines = (ImageGalleryInline, ProductLinksInline)
 
     def display_image(self, obj):
         if obj and obj.image:

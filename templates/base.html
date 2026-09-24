@@ -80,5 +80,26 @@
     {% block script %}
 
     {% endblock %}
+
+    <script>
+      window.addEventListener('keydown', (e) => {
+        const next = document.querySelector('.next-btn')?.href
+        const prev = document.querySelector('.prev-btn')?.href
+        switch (e.key) {
+          case 'ArrowRight':
+            if (next) {
+              document.location.href = next
+            }
+            break
+          case 'ArrowLeft':
+            if (prev) {
+              document.location.href = prev
+            }
+            break
+          default:
+            break
+        }
+      })
+    </script>
   </body>
 </html>

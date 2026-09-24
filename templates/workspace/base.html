@@ -6,13 +6,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/workspace.css' %}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
     <link rel="icon"
       href="{% block icon %}
 
       {% endblock %}" />
     <title>
       {% block title %}
+
       {% endblock %}
     </title>
   </head>
@@ -26,21 +27,18 @@
       <div class="container">
         <div class="nav-flex">
           <div class="logo">
-            <a href="{% url 'main_page' %}">MarketPlace </a>
+            <a href="{% url 'main_page' %}">MarketPlace</a>
           </div>
           {% block nav_center %}
-
-          <form class="searchForm">
-            <input type="text" name="search" id="search" placeholder="Поиск товаров" />
-            <input type="submit" value="Поиск" id="submit" />
-          </form>
-
-          {% endblock  %}
+            <form class="searchForm">
+              <input type="text" name="search" id="search" placeholder="Поиск товаров" />
+              <input type="submit" value="Поиск" id="submit" />
+            </form>
+          {% endblock %}
 
           <div class="create-btn">
             <a href="{% url 'create_product' %}">Добавить товар</a>
           </div>
-
         </div>
       </div>
     </nav>
@@ -74,5 +72,26 @@
     {% block script %}
 
     {% endblock %}
+
+    <script>
+      window.addEventListener('keydown', (e) => {
+        const next = document.querySelector('.next-btn')?.href
+        const prev = document.querySelector('.prev-btn')?.href
+        switch (e.key) {
+          case 'ArrowRight':
+            if (next) {
+              document.location.href = next
+            }
+            break
+          case 'ArrowLeft':
+            if (prev) {
+              document.location.href = prev
+            }
+            break
+          default:
+            break
+        }
+      })
+    </script>
   </body>
 </html>
