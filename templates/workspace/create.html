@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block style %}
-  <style></style>
+
 {% endblock %}
 
 {% block nav_center %}
@@ -27,24 +27,22 @@
         <h1 class="form-title">Добавление товара</h1>
 
         <div class="name-block">
-          <label for="product-name">Название <span class="red">*</span></label>
-          <input type="text" name="product-name" id="name" required />
+          <label for="{{ form.name.id_for_label }}">{{ form.name.label }} <span class="red">*</span></label>
+          {{ form.name }}
         </div>
 
         <div class="description-block">
-          <label for="description">Короткое описание <span class="red">*</span></label>
-          <textarea name="description" id="description" maxlength="120" required></textarea>
+          <label for="{{ form.description.id_for_label }}">{{ form.description.label }} <span class="red">*</span></label>
+          {{ form.description }}
         </div>
 
         <div class="image-block">
-          <span>Изображения</span>
-
           <div class="image-title">Основное изображение</div>
 
           <label class="image-label">
-            <label for="image" class="upload-btn"><i class="fa-solid fa-image"></i></label>
+            <label for="{{ form.image.id_for_label }}" class="upload-btn"><i class="fa-solid fa-image"></i></label>
             <span>Выбранный файл: <span class="selected-file"></span></span>
-            <input type="file" name="image" class="hidden" id="image" accept="images/*" />
+            {{ form.image }}
           </label>
 
           <div class="image-title">Допольнительные изображения</div>
@@ -57,8 +55,8 @@
         </div>
 
         <div class="full-description-block">
-          <label for="full-description">Полное описание <span class="red">*</span></label>
-          <textarea name="full-description" id="full-description" required></textarea>
+          <label for="{{ form.full_description.id_for_label }}">{{ form.full_description.label }} <span class="red">*</span></label>
+          {{ form.full_description }}
         </div>
 
         <div class="links-block">
@@ -82,52 +80,36 @@
 
         <div class="split">
           <div class="author-block">
-            <label for="product-name">Автор <span class="red">*</span></label>
-            <input type="text" name="author" id="author" required />
+            <label for="{{ form.author.id_for_label }}">{{ form.author.label }} <span class="red">*</span></label>
+            {{ form.author }}
           </div>
           <div class="price-block">
-            <label for="price">Цена <span class="red">*</span></label>
-            <input type="number" name="price" id="price" required />
+            <label for="{{ form.price.id_for_label }}">{{ form.price.label }} <span class="red">*</span></label>
+            {{ form.price }}
           </div>
         </div>
 
         <div class="split">
           <div class="category-block">
-            <label for="category">Категория <span class="red">*</span></label>
-            <select name="category" id="category" required>
-              <option value="0" disable selected hidden>Выберите категорию</option>
-              {% get_categories as categories %}
-              {% for category in categoryes %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-              {% endfor %}
-            </select>
+            <label for="{{ form.category.id_for_label }}">{{ form.category.label }} <span class="red">*</span></label>
+            {{ form.category }}
           </div>
 
           <div class="brand-block">
-            <label for="brand">Бренд <span class="red">*</span></label>
-            <select name="brand" id="brand" required>
-              <option value="0" disable selected hidden>Выберите бренд</option>
-              {% get_brands as brands %}
-              {% for brand in brands %}
-                <option value="{{ brand.id }}">{{ brand.name }}</option>
-              {% endfor %}
-            </select>
+            <label for="{{ form.brand.id_for_label }}">{{ form.brand.label }} <span class="red">*</span></label>
+            {{ form.brand }}
           </div>
         </div>
 
         <div class="split">
           <div class="condition-block">
-            <label for="condition">Состояние <span class="red">*</span></label>
-            <select name="condition" id="condition" required>
-              <option value="" disabled selected hidden>Состояние</option>
-              <option value="Б-У">Б/У</option>
-              <option value="Новое">Новое</option>
-            </select>
+            <label for="{{ form.condition.id_for_label }}">{{ form.condition.label }} <span class="red">*</span></label>
+            {{ form.condition }}
           </div>
 
           <div class="model-block">
-            <label for="model">Модель <span class="red">*</span></label>
-            <input type="text" name="model" id="model" required />
+            <label for="{{ form.model.id_for_label }}">{{ form.model.label }} <span class="red">*</span></label>
+            {{ form.model }}
           </div>
         </div>
 

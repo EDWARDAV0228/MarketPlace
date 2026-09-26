@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import IntegrityError
+from products_app.forms import ProductForms
 from products_app.models import Products, Category, Brand, ImageGallery, ProductLinks
 
 
@@ -12,6 +13,7 @@ def main_page(request):
     conditions = request.GET.get("condition_check")
     to_price = request.GET.get("to_price")
     from_price = request.GET.get("from_price")
+    sort_type = request.GET.get("sort")
 
     search = request.GET.get("search")
 
@@ -20,15 +22,6 @@ def main_page(request):
             products.filter(category__name__icontains=search),
             products.filter(brand__name__icontains=search),
         )
-
-    # if (
-    #     not categories
-    #     and not brands
-    #     and not conditions
-    #     # and not from_price
-    #     # and not to_price
-    # ):
-    #     return redirect("main_page")
 
     if from_price and not to_price:
         products = products.filter(price__gte=from_price)
@@ -45,11 +38,29 @@ def main_page(request):
         products = products.filter(brand__id__in=brands)
     if conditions:
         for condition in conditions:
-            if condition == '1':
-                products = products.filter(condition='Б-У')
-            if condition == '2':
-                products = products.filter(condition='Новое')
-    
+            if condition == "1":
+                products = products.filter(condition="Б-У")
+            if condition == "2":
+                products = products.filter(condition="Новое")
+
+    if sort_type:
+        match sort_type:
+            case "name_1":
+                products = products.order_by("name")
+            case "name_1":
+                products = products.order_by("-name")
+            case "category_1":
+                products = products.order_by("category")
+            case "category_2":
+                products = products.order_by("-category")
+            case "brand_1":
+                products = products.order_by("brand")
+            case "brand_2":
+                products = products.order_by("-brand")
+            case "price_1":
+                products = products.order_by("price")
+            case "price_2":
+                products = products.order_by("-price")
 
     page = request.GET.get("page", 1)
     page_size = request.GET.get("page_size", 9)
@@ -156,66 +167,15 @@ def workspace(request):
 
 def create_product(request):
 
+    form = ProductForms()
+
     if request.method == "POST":
-        name = request.POST.get("product-name")
-        description = request.POST.get("description")
-        image = request.FILES.get("image")
-        gallery = request.FILES.getlist("gallery")
-        full_description = request.POST.get("full-description")
-        price = request.POST.get("price")
-        author = request.POST.get("author")
-        category = Category.objects.get(id=int(request.POST.get("category")))
-        brand = Brand.objects.get(id=int(request.POST.get("brand")))
-        model = request.POST.get("model")
-        whatsapp = request.POST.get("whatsapp")
-        telegram = request.POST.get("telegram")
-        instagram = request.POST.get("instagram")
-        facebook = request.POST.get("facebook")
+        form = ProductForms(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("workspace")
 
-        product = Products.objects.create(
-            name=name,
-            description=description,
-            full_description=full_description,
-            price=price,
-            author=author,
-            category=category,
-            brand=brand,
-            model=model,
-        )
-
-        ProductLinks.objects.create(
-            product=product,
-            whatsapp=whatsapp,
-            telegram=telegram,
-            instagram=instagram,
-            facebook=facebook,
-        )
-
-        if image:
-            product.image.save(image.name, image)
-
-        if gallery:
-            for img in gallery:
-                image = ImageGallery.objects.create(
-                    product=product,
-                    file=img,
-                )
-
-        product.save()
-
-        return redirect("workspace")
-
-    categoryes = Category.objects.all()
-    brands = Brand.objects.all()
-
-    return render(
-        request,
-        "workspace/create.html",
-        {
-            "categoryes": categoryes,
-            "brands": brands,
-        },
-    )
+    return render(request, "workspace/create.html", {"form": form})
 
 
 def del_product(request, product_id):

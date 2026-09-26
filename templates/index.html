@@ -52,7 +52,7 @@
         <div class="filter-block">
           <div class="open-btn">
             <span class="angle"><i class="fa-solid fa-angle-right"></i></span>
-            Состояние
+            Состояния
           </div>
           <div class="filter-list hidden">
             <div class="check-block">
@@ -87,7 +87,23 @@
 
     <section class="product-list">
       <div class="container">
-        <div class="product-sort"></div>
+        <form class="product-sort">
+          <div>
+            <label for="sort">Сортировка:</label>
+            <select name="sort" id="sort">
+              <option value="default" selected disabled>Выберите</option>
+              <option value="name_1">⮟ Название</option>
+              <option value="name_2">⮝ Название</option>
+              <option value="category_1">⮟ Категория</option>
+              <option value="category_2">⮝ Категория</option>
+              <option value="brand_1">⮟ Бренд</option>
+              <option value="brand_2">⮝ Бренд</option>
+              <option value="price_1">⮟ Цена</option>
+              <option value="price_2">⮝ Цена</option>
+            </select>
+            <input type="submit" value="Сортировать">
+          </div>
+        </form>
         <div class="products-list">
           {% for product in products %}
             <div class="product">
