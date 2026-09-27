@@ -1,0 +1,58 @@
+{% load static %}
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="fixed-message">
+      <div class="message">
+        {% if message.level_tag == 'success' %}
+          <div class="type-icon success">
+            <i class="fa-solid fa-square-check"></i>
+          </div>
+          <div class="message-text">{{ message }}</div>
+        {% elif message.level_tag == 'error' %}
+          <div class="type-icon error">
+            <i class="fa-solid fa-square-xmark"></i>
+          </div>
+          <div class="message-text">{{ message }}</div>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+
+{% endif %}
+
+<style>
+  .fixed-message {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    top: 50px;
+    left: 0;
+    right: 0;
+    height: max-content;
+    z-index: 10;
+  }
+  
+  .message {
+    position: absolute;
+    display: flex;
+    background-color: #e1dfdf;
+    padding: 20px 30px;
+    border-radius: 10px;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .type-icon {
+    font-size: 18px;
+  }
+  
+  .success {
+    color: #00e317;
+  }
+  
+  .error {
+    color: #e30000;
+  }
+</style>

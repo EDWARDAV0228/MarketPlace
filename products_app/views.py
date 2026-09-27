@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from products_app.forms import ProductForms
 from products_app.models import Products, Category, Brand, ImageGallery, ProductLinks
 
@@ -12,7 +13,7 @@ def main_page(request):
     conditions = request.GET.get("condition_check")
     to_price = request.GET.get("to_price")
     from_price = request.GET.get("from_price")
-    sort_type = request.GET.get("sort")
+    sort = request.GET.get("sort")
 
     search = request.GET.get("search")
 
@@ -33,8 +34,10 @@ def main_page(request):
 
     if categories:
         products = products.filter(category__id__in=categories)
+
     if brands:
         products = products.filter(brand__id__in=brands)
+
     if conditions:
         for condition in conditions:
             if condition == "1":
@@ -42,8 +45,8 @@ def main_page(request):
             if condition == "2":
                 products = products.filter(condition="Новое")
 
-    if sort_type:
-        match sort_type:
+    if sort:
+        match sort:
             case "name_1":
                 products = products.order_by("name")
             case "name_1":
@@ -172,14 +175,16 @@ def create_product(request):
         form = ProductForms(data=request.POST, files=request.FILES)
         if form.is_valid():
             product = form.save()
+            messages.success(request, f"Товар {product.name} успешно опубликован!")
             return redirect("workspace")
-
+    messages.error(request, "Присутствуют ошибки, повторите попытку!")
     return render(request, "workspace/create.html", {"form": form})
 
 
 def del_product(request, product_id):
     product = get_object_or_404(Products, pk=product_id)
     product.delete()
+    messages.success(request, f"Товар {product.name} успешно удалён!")
     return redirect("workspace")
 
 
@@ -191,6 +196,8 @@ def edit_product(request, product_id):
         form = ProductForms(instance=product, data=request.POST, files=request.FILES)
         if form.is_valid():
             product = form.save()
+            messages.success(request, "Товар успешно сохранён!")
             return redirect("workspace")
 
+    messages.error(request, "Присутствуют ошибки, повторите попытку!")
     return render(request, "workspace/edit.html", {"product": product, "form": form})
