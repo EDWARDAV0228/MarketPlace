@@ -1,6 +1,5 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db import IntegrityError
 from products_app.forms import ProductForms
 from products_app.models import Products, Category, Brand, ImageGallery, ProductLinks
 
@@ -172,7 +171,7 @@ def create_product(request):
     if request.method == "POST":
         form = ProductForms(data=request.POST, files=request.FILES)
         if form.is_valid():
-            form.save()
+            product = form.save()
             return redirect("workspace")
 
     return render(request, "workspace/create.html", {"form": form})
@@ -186,50 +185,12 @@ def del_product(request, product_id):
 
 def edit_product(request, product_id):
     product = get_object_or_404(Products, pk=product_id)
+    form = ProductForms(instance=product)
+
     if request.method == "POST":
-        product.name = request.POST.get("product-name")
-        product.description = request.POST.get("description")
-        image = request.FILES.get("image")
-        gallery = request.FILES.getlist("gallery")
-        product.full_description = request.POST.get("full-description")
-        product.price = request.POST.get("price")
-        product.author = request.POST.get("author")
-        product.category = Category.objects.get(id=int(request.POST.get("category")))
-        product.brand = Brand.objects.get(id=int(request.POST.get("brand")))
-        product.model = request.POST.get("model")
-        whatsapp = request.POST.get("whatsapp")
-        telegram = request.POST.get("telegram")
-        instagram = request.POST.get("instagram")
-        facebook = request.POST.get("facebook")
+        form = ProductForms(instance=product, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            product = form.save()
+            return redirect("workspace")
 
-        ProductLinks.objects.update_or_create(
-            product=product,
-            defaults={
-                "whatsapp": whatsapp,
-                "telegram": telegram,
-                "instagram": instagram,
-                "facebook": facebook,
-            },
-        )
-        if image:
-            product.image.save(image.name, image)
-
-        if gallery:
-            for img in gallery:
-                ImageGallery.objects.create(product=product, file=img)
-
-        product.save()
-        return redirect("workspace")
-
-    categoryes = Category.objects.all()
-    brands = Brand.objects.all()
-
-    return render(
-        request,
-        "workspace/edit.html",
-        {
-            "product": product,
-            "categoryes": categoryes,
-            "brands": brands,
-        },
-    )
+    return render(request, "workspace/edit.html", {"product": product, "form": form})

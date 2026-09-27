@@ -4,10 +4,10 @@
 {% load main_tags %}
 
 {% block icon %}
-{% static 'images/icons/Edit.svg' %}
+  {% static 'images/icons/Edit.svg' %}
 {% endblock %}
 
-{% include "static js/selectedImg.js" %}
+{% include 'static js/selectedImg.js' %}
 
 {% block title %}
   Редактировать товар
@@ -29,107 +29,106 @@
         <h1 class="form-title">Редактирование товара</h1>
 
         <div class="name-block">
-          <label for="product-name">Название <span class="red">*</span></label>
-          <input type="text" value="{{product.name}}" name="product-name" id="name" required />
+          <label for="{{ form.name.id_for_label }}">{{ form.name.label }} <span class="red">*</span></label>
+          {{ form.name }}
         </div>
 
         <div class="description-block">
-          <label for="description">Короткое описание <span class="red">*</span></label>
-          <textarea name="description" id="description" maxlength="120" required>{{product.description}}</textarea>
+          <label for="{{ form.description.id_for_label }}">{{ form.description.label }} <span class="red">*</span></label>
+          {{ form.description }}
         </div>
 
         <div class="image-block">
-          <span>Изображения</span>
-
           <div class="image-title">Основное изображение</div>
 
           <label class="image-label">
-            <label for="image" class="upload-btn"><i class="fa-solid fa-image"></i></label>
-            <span>Выбранный файл: <span class="selected-file"></span></span>
-            <input type="file" name="image" class="hidden" id="image" accept="images/*" />
+            <label for="{{ form.image.id_for_label }}" class="upload-btn"><i class="fa-solid fa-image"></i></label>
+            <span>
+              Выбранный файл: <span class="selected-file">
+                {% if product.image %}
+                  {{ product.image.url|slice:"23:" }}
+                {% else %}
+                  пусто
+                {% endif %}
+              </span>
+            </span>
+            {{ form.image }}
           </label>
 
           <div class="image-title">Допольнительные изображения</div>
 
           <label class="gallery-label">
             <label for="gallery" class="upload-btn"><i class="fa-solid fa-image"></i></label>
-            <span>Выбранные файл: <span class="selected-file"></span></span>
+            <span>
+              Выбранные файлы: <span class="selected-file"></span>
+              {% if product.gallery %}
+                {% for img in product.gallery.all %}
+                  {{ img.file.url|slice:"24:" }},
+                {% endfor %}
+              {% else %}
+                пусто
+              {% endif %}
+            </span>
             <input type="file" name="gallery" class="hidden" id="gallery" accept="products/gallery" multiple />
           </label>
         </div>
 
         <div class="full-description-block">
-          <label for="full-description">Полное описание <span class="red">*</span></label>
-          <textarea name="full-description" id="full_description" required>{{product.full_description}}</textarea>
+          <label for="{{ form.full_description.id_for_label }}">{{ form.full_description.label }} <span class="red">*</span></label>
+          {{ form.full_description }}
         </div>
 
         <div class="links-block">
           <div class="link-block">
             <label for="whatsapp"><i class="fa-brands fa-whatsapp"></i> Whatsapp</label>
-            <input type="text" name="whatsapp" placeholder="Введите ссылку" value='{{ product.links.whatsapp }}' id="whatsapp" />
+            <input type="text" name="whatsapp" placeholder="Введите ссылку" value="{{ product.links.whatsapp }}" id="whatsapp" />
           </div>
           <div class="link-block">
             <label for="telegram"><i class="fa-brands fa-telegram"></i> Telegram</label>
-            <input type="text" name="telegram" placeholder="Введите ссылку" value='{{product.links.telegram}}' id="telegram" />
+            <input type="text" name="telegram" placeholder="Введите ссылку" value="{{ product.links.telegram }}" id="telegram" />
           </div>
           <div class="link-block">
             <label for="instagram"><i class="fa-brands fa-instagram"></i> Instagram</label>
-            <input type="text" name="instagram" placeholder="Введите ссылку" value='{{product.links.instagram}}' id="instagram" />
+            <input type="text" name="instagram" placeholder="Введите ссылку" value="{{ product.links.instagram }}" id="instagram" />
           </div>
           <div class="link-block">
             <label for="facebook"><i class="fa-brands fa-facebook"></i> Facebook</label>
-            <input type="text" name="facebook" placeholder="Введите ссылку" value='{{product.links.facebook}}' id="facebook" />
+            <input type="text" name="facebook" placeholder="Введите ссылку" value="{{ product.links.facebook }}" id="facebook" />
           </div>
         </div>
 
         <div class="split">
           <div class="author-block">
-            <label for="product-name">Автор <span class="red">*</span></label>
-            <input type="text" name="author" id="author" value="{{product.author}}" required />
+            <label for="{{ form.author.id_for_label }}">{{ form.author.label }} <span class="red">*</span></label>
+            {{ form.author }}
           </div>
           <div class="price-block">
-            <label for="price">Цена <span class="red">*</span></label>
-            <input type="number" name="price" id="price" value="{{product.price}}" required />
+            <label for="{{ form.price.id_for_label }}">{{ form.price.label }} <span class="red">*</span></label>
+            {{ form.price }}
           </div>
         </div>
 
         <div class="split">
           <div class="category-block">
-            <label for="category">Категория <span class="red">*</span></label>
-            <select name="category" id="category" required>
-              <option value="0" disable selected hidden>Выберите категорию</option>
-              {% get_categories as categories %}
-              {% for category in categoryes %}
-                <option {% if category == product.category %}selected{% endif %} value="{{ category.id }}">{{ category.name }}</option>
-              {% endfor %}
-            </select>
+            <label for="{{ form.category.id_for_label }}">{{ form.category.label }} <span class="red">*</span></label>
+            {{ form.category }}
           </div>
 
           <div class="brand-block">
-            <label for="brand">Бренд <span class="red">*</span></label>
-            <select name="brand" id="brand" required>
-              <option value="0" disable selected hidden>Выберите бренд</option>
-              {% get_brands as brands %}
-              {% for brand in brands %}
-                <option {% if brand == product.brand %}selected{% endif %} value="{{ brand.id }}">{{ brand.name }}</option>
-              {% endfor %}
-            </select>
+            <label for="{{ form.brand.id_for_label }}">{{ form.brand.label }} <span class="red">*</span></label>
+            {{ form.brand }}
           </div>
         </div>
 
         <div class="split">
           <div class="condition-block">
-            <label for="condition">Состояние <span class="red">*</span></label>
-            <select name="condition" id="condition" required>
-              <option value="" disabled selected hidden>Состояние</option>
-              <option value="Б-У" {% if product.condition == 'Б-У' %}selected{% endif %}>Б/У</option>
-              <option value="Новое" {% if product.condition == 'Новое' %}selected{% endif %}>Новое</option>
-            </select>
+            <label for="{{ form.condition.id_for_label }}">{{ form.condition.label }} <span class="red">*</span></label>
+            {{ form.condition }}
           </div>
 
           <div class="model-block">
-            <label for="model">Модель <span class="red">*</span></label>
-            <input type="text" name="model" id="model" value="{{product.model}}" required />
+            <label for="{{ form.model.id_for_label }}">{{ form.model.label }} <span class="red">*</span></label>
+            {{ form.model }}
           </div>
         </div>
 
@@ -138,19 +137,14 @@
             <input type="submit" value="Сохранить изменение" />
           </div>
           <div class="del-submit">
-            <a href="{% url 'del_product' product_id=product.id %}">
-              Удалить товар
-            </a>
+            <a href="{% url 'del_product' product_id=product.id %}">Удалить товар</a>
           </div>
         </div>
-       
       </form>
     </div>
   </section>
 {% endblock %}
 
 {% block script %}
-<script src="{% static 'js/selectedImg.js' %}"></script>
-{% endblock script %}
-
-
+  <script src="{% static 'js/selectedImg.js' %}"></script>
+{% endblock %}

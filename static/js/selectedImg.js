@@ -1,9 +1,6 @@
 let imageInput = document.querySelector('#image_inp');
 let galleryInput = document.querySelector('#gallery');
 
-document.querySelectorAll('.selected-file').forEach(file => {
-  file.textContent = 'пусто';
-})
 
 imageInput.addEventListener('change', () => {
   const fileName = imageInput.value.split('//').pop().slice(12,);
