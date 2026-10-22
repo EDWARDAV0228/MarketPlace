@@ -1,0 +1,42 @@
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
+<link rel="stylesheet" href="{% static 'css/style2.css' %}" />
+
+<nav>
+  <div class="container">
+    <div class="nav-flex">
+      <div class="logo">
+        <a href="{% url 'main_page' %}">MarketPlace</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+{% include 'workspace/components/messages.html' %}
+
+<section>
+  <div class="container">
+    <div class="log-flex">
+      <form class="log-form" action="{% url 'login_page' %}" method="POST" novalidate>
+        {% csrf_token %}
+        <div class="log-title">Вход в профиль</div>
+
+        <div class="log-inps">
+          <div class="username">
+            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+            {{ form.username }}
+          </div>
+
+          <div class="password">
+            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+            {{ form.password }}
+          </div>
+
+          <div class="login">
+            <input type="submit" value="Вход" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

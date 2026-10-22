@@ -15,6 +15,9 @@
           </div>
           <div class="message-text">{{ message }}</div>
         {% endif %}
+        <div class="close-btn">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
       </div>
     </div>
   {% endfor %}
@@ -55,4 +58,27 @@
   .error {
     color: #e30000;
   }
+  
+  .close-btn {
+    position: absolute;
+    top: 3px;
+    right: 7px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .close-btn i {
+    font-size: 12px;
+  }
+  
+  .close-btn:hover {
+    transform: scale(1.2);
+  }
 </style>
+
+<script>
+  let closeBtn = document.querySelector('.close-btn')
+  closeBtn.addEventListener('click', (e) => {
+    document.querySelector('.fixed-message').classList.add('hidden')
+  })
+</script>

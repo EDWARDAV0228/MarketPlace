@@ -13,7 +13,9 @@ body {
 }
 
 nav {
-    padding-block: 20px;
+    padding-block: 20px 15px;
+    border-bottom: 1px solid #000;
+    margin-bottom: 5px;
 }
 
 .nav-flex {
@@ -29,16 +31,20 @@ nav {
 
 .nav-elems {
     display: flex;
-    width: 8%;
-    justify-content: end;
+    gap: 10px;
     font-size: 32px;
+    width: 15%;
+    justify-content: right;
+    align-items: center;
+    margin-right: -60px;
 }
 
-.nav-elems a {
+.nav-elems a:first-child {
     padding: 10px 10px;
-    margin-right: -60px;
     background-color: #f8f6f6;
     border-radius: 15px;
+    cursor: pointer;
+    margin: 0;
     color: #000;
     text-decoration: none;
 }
@@ -219,7 +225,6 @@ section {
 
 .searchForm {
     width: 30%;
-    transform: translateX(200px);
 }
 
 
@@ -474,4 +479,124 @@ aside form {
     border: 1px solid #000;
     margin-left: -5px;
     background-color: transparent;
+}
+
+.profile-menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    border-radius: 10px;
+    right: -60px;
+    z-index: 2;
+    padding: 40px;
+    background-color: #f8f6f6;
+}
+
+.profile-info i {
+    font-size: 24px;
+}
+
+.profile-info {
+    display: flex;
+    font-size: 20px;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-btns {
+    display: flex;
+    align-items: left;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.profile-btns a {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #000;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.modal-close {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+}
+
+.hidden-2 {
+    opacity: 0;
+    z-index: -3;
+}
+
+.modal-open {
+    cursor: pointer;
+    background-color: #f8f6f6;
+    border-radius: 15px;
+    padding: 10px;
+    color: #000;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.log-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.log-form {
+    background-color: #f8f6f6;
+    border-radius: 20px;
+    padding: 40px;
+    width: 30%;
+}
+
+.log-title {
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #000;
+    margin-bottom: 5px;
+}
+
+.log-inps {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.log-form input {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #000;
+    padding: 5px 10px;
+}
+
+.login input {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #00e317;
+    transition: .4s;
+    margin-top: 10px;
+    border: 0;
+}
+
+.login input:hover {
+    transform: scale(1.02);
+}
+
+.log-btn,
+.reg-btn {
+    font-size: 18px;
+    font-weight: 600;
 }

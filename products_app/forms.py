@@ -18,7 +18,6 @@ class ProductForms(forms.ModelForm):
             "model",
             "price",
             "author",
-            
             "category",
             "condition",
             "description",
@@ -80,3 +79,12 @@ class ProductForms(forms.ModelForm):
                 }
             ),
         }
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        label="Имя пользователя", widget=forms.TextInput(attrs={"class": ""})
+    )
+    password = forms.CharField(
+        label="Пароль", widget=forms.PasswordInput(attrs={"class": ""})
+    )

@@ -1,7 +1,9 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from products_app.forms import ProductForms
+from products_app.forms import ProductForms, LoginForm
 from products_app.models import Products, Category, Brand, ImageGallery, ProductLinks
 
 
@@ -201,3 +203,32 @@ def edit_product(request, product_id):
 
     messages.error(request, "Присутствуют ошибки, повторите попытку!")
     return render(request, "workspace/edit.html", {"product": product, "form": form})
+
+
+def login_page(request):
+
+    if request.user.is_authenticated:
+        return redirect("workspace")
+
+    form = LoginForm(data=request.POST)
+    if form.is_valid():
+        username = form.cleaned_data.get("username")
+        password = form.cleaned_data.get("password")
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            login(request, user)
+            return redirect("workspace")
+
+        messages.error(request, "Неверное имя пользователя или пароль!")
+
+    return render(request, "auth/login.html", {"form": form})
+
+
+def logout_page(request):
+
+    if request.user.is_authenticated:
+        logout(request)
+
+    return redirect("main_page")
